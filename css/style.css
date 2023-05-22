@@ -1,0 +1,16 @@
+/*set of color theme*/
+:root {
+    --brown: #4C2E05;
+    --sage: #7A8450;
+    --grey: #AEBD93;
+    --mint: #BEE7B8;
+    --greyblue: #95969D;
+
+}
+
+/*navbar*/
+.navbar {
+    background-color: var(--sage);
+}
+
+/*button*/
