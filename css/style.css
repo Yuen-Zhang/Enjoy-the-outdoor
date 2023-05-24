@@ -5,12 +5,104 @@
     --grey: #AEBD93;
     --mint: #BEE7B8;
     --greyblue: #95969D;
+    --purple: #8e4a49;
+    --purplelight: #8e4a49ab;
+    --lightblue: #add8e6;
+
+}
+.bg-image {
+    background-image: url(../images/bg1.jpg);
+    box-shadow: inset 0 0 0 100vw #0000004d;
+    background-position: center;
+    color: white;
 
 }
 
-/*navbar*/
+/**************navbar*************/
 .navbar {
+    background-color: rgba(190, 231, 184, 0.5);
+}
+.nav-link, .navbar-brand {
+    color: antiquewhite;
+}
+.navbar-brand {
+    font-size: 35px;
+}
+.nav-link {
+    font-size: 20px;
+}
+/**************main**************/
+/*selection*/
+#secondselectiondiv {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    justify-content: center;
+}
+/*card*/
+.card {
+    margin: 10px auto 10px auto;
+    padding: 10px 0px;
+    background-color: rgba(149, 150, 157, 0.3);
+    color: antiquewhite;
+    backdrop-filter: blur(2px);
+}
+
+.locationname {
+    text-align: center;
+}
+.state {
+    text-align: center;
+}
+.city {
+    text-align: center;
+}
+
+.parkdetailinfo {
+    margin-left: auto;
+    margin-right: auto;
+}
+.parkdetailinfo label {
+    font-weight: bold;
+}
+/*button setting*/
+.btn-info {
+    background-color: var(--mint);
+    border: none;
+
+}
+.btn-info:hover {
     background-color: var(--sage);
 }
+.btn-info:visited {
+    background-color: var(--sage);
+}
+.btn-danger {
+    background-color: var(--purplelight);
+    border: none;
+}
+.btn-danger:hover {
+    background-color: var(--purple);
+}
+a {
+    text-decoration: none;
+}
+#favnum {
+    color: black;
+}
 
-/*button*/
+/*mount info page*/
+#sortdiv {
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+.mountimg {
+    border-radius: 5%;
+}
+#fillmountdiv {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.mountname {
+    align-items: center;
+}

@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Parks</title>
 </head>
-<body>
-    
+<body class="bg-image">
+<!------------------------------navbar start-------------------------------------->        
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Outdoor's Life</a>
+            <a class="navbar-brand" href="index.html">Outdoor's Life</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,8 +30,8 @@
                     </li>
                 </ul>
                 <div id="fav" class="d-flex">
-                    <a id="favlink">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                    <a id="favlink" href="favlist.html" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
                             <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
                         </svg>
                         <span id="favnum">0</span>
@@ -41,49 +41,61 @@
             </div>
         </div>
     </nav>
-   
-    <!--main selection list-->
-    <div class="container">
-        <div class="row">
-            <div class="col-9">
-                <div id="mainselectiondiv" class="row">
-                        <div class="col-2"><span>Filter By: </span></div>
-                        <div class="col-2">                        
-                            <input type="radio" class="mainselection" id="all" name="mainselection" value="all">
-                            <label for="all">All</label>
-                        </div>
-                        <div class="col-2">
-                            <input type="radio" class="mainselection" id="location" name="mainselection" value="location">
-                            <label for="location">Location</label>
-                        </div>
-                        <div class="col-2">
-                            <input type="radio" class="mainselection" id="parktype" name="mainselection" value="parktype">
-                            <label for="parktype">Park Type</label>
-                        </div>
+<!------------------------------navbar end-------------------------------------->
+<!--------------------------main content start---------------------------------->
+    <main>
+        <!--main selection list-->
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <div id="mainselectiondiv" class="row">
+                            <div class="col-2"><span>Filter By: </span></div>
+                            <div class="col-2">                        
+                                <input type="radio" class="mainselection" id="all" name="mainselection" value="all">
+                                <label for="all">All</label>
+                            </div>
+                            <div class="col-2">
+                                <input type="radio" class="mainselection" id="location" name="mainselection" value="location">
+                                <label for="location">Location</label>
+                            </div>
+                            <div class="col-2">
+                                <input type="radio" class="mainselection" id="parktype" name="mainselection" value="parktype">
+                                <label for="parktype">Park Type</label>
+                            </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>        
-    </div>
-    <div class="container">
-        <div id="secondselectionloc" class="d-none">
-            <select id="locationselection"></select>
+                <div class="col">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>        
         </div>
-        <div id="secondselectiontype" class="d-none">
-            <select id="parkselection"></select>
+        <div class="container" id="secondselectiondiv">
+                <!--based on state-->
+                <div id="secondselectionloc" class="d-none">
+                    <select id="locationselection"></select>
+                </div>
+                <div id="thirdselectionloc" class="d-none">
+                    <select id="locparkselection"></select>
+                </div>
+                <!--based on type-->
+                <div id="secondselectiontype" class="d-none">
+                    <select id="parkselection"></select>
+                </div>
+                <div id="thirdselectiontype" class="d-none">
+                    <select id="typeparkselection"></select>
+                </div>
         </div>
-    </div>
-    <div id="displaylist" class="container">
+        <div id="displaylist" class="container"></div>
+    </main>
+<!---------------------------main content end----------------------------------->
+<!-----------------------------footer start------------------------------------->
+    <footer>
 
-    </div>
-
-
-
+    </footer>
+<!------------------------------footer end-------------------------------------->
     <!--js link-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script type="module" src="./scripts/search.js"></script>
