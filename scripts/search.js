@@ -12,7 +12,8 @@
     const thirdSelectionTypeDiv = $("#thirdselectiontype")[0];
     const listToDisplay = $("#displaylist")[0];
     let fav = [];
-
+    let searchInput = $("#data-search")[0];
+    let searchBtn = $("#searchbtn")[0];
 //get data/array from other js file
     import { locationsArray, parkTypeArray} from "./data-scripts/locationData.js";
     import { nationalParksArray } from "./data-scripts/nationalParkData.js";
@@ -48,7 +49,7 @@
                 selectionList(parkTypeArray, "parkselection");//.appendChild(parkTypeOption);
             }else{
                 // selected all
-                displayTheList(nationalParksArray).scrollIntoView();
+                displayTheList(nationalParksArray);
                 secondSelectionLocDiv.classList.add("d-none");
                 secondSelectionTypeDiv.classList.add("d-none");
             }
@@ -197,17 +198,21 @@ function selectionListObj(_array, _selection) {
                 localStorage.getItem("fav")
             }
         }
+        localStorage.setItem("fav3",fav)
     }
 
 for(let obj of $(".tofav")){
     obj.addEventListener("click", function(){
-        add2Fav(LocationID)
+        add2Fav(LocationID);
     })
 }
 
 
 //window.location.search.substring(1)
-
+searchBtn.addEventListener("click", (e) => {
+    const value = e.target.searchInput.value
+    console.log(value);
+})
 /*time permit when select location display the US map then can click the state
 in map to go to the result of the certain state, and zoom in the result by
 the state locate, and when mouse over the state, display the park name */

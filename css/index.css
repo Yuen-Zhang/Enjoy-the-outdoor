@@ -9,9 +9,6 @@
     --purplelight: #8e4a49ab;
 
 }
-* {
-    box-sizing: border-box;
-}
 
 main {
     display: flex;
@@ -44,10 +41,6 @@ main {
 }
 
 .imgtext {
-    /*position: absolute;
-    bottom: 20px;
-    left: 20px;
-    margin: 0;*/
     opacity: 0;
 }
 
@@ -70,17 +63,17 @@ main {
     top: 50px;
     left: 20px;
 }
-#img3 h3 a {
+#img3 h3 a, #img5 h3 a {
     text-decoration: none;
     color: white;
 }
-#img3 h3 a:hover{
+#img3 h3 a:hover, #img5 h3 a:hover{
     color: var(--greyblue);
 }
-#img3 h3 {
+#img3 h3, #img5 h3 {
     transition: transform 0.5s;
 }
-#img3 h3:hover {
+#img3 h3:hover, #img5 h3:hover {
     transform: translateY(-5px);
 }
 #img3 {
@@ -88,6 +81,11 @@ main {
     top: 100px;
     right: 10%;
 
+}
+#img5 {
+    position: absolute;
+    bottom: 15%;
+    left: 5px;
 }
 @media (max-width: 480px) {
     .container {

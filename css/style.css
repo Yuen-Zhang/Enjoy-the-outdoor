@@ -31,6 +31,30 @@
 .nav-link {
     font-size: 20px;
 }
+
+/*************footer**************/
+#page-container {
+    height: 100%;
+    position: relative;
+  }
+  
+  #content-wrap {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px; /* height of your footer */  }  
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0px 20px;
+    color: antiquewhite;
+}
+.ms-3 a {
+    color: antiquewhite;
+    text-decoration: none;
+}
 /**************main**************/
 /*selection*/
 #secondselectiondiv {
@@ -66,15 +90,12 @@
     font-weight: bold;
 }
 /*button setting*/
-.btn-info {
+.btn-success {
     background-color: var(--mint);
     border: none;
-
+    color: black;
 }
-.btn-info:hover {
-    background-color: var(--sage);
-}
-.btn-info:visited {
+.btn-success:hover {
     background-color: var(--sage);
 }
 .btn-danger {
@@ -92,17 +113,25 @@ a {
 }
 
 /*mount info page*/
-#sortdiv {
+#sortdiv, #mountainnamediv {
     margin-bottom: 10px;
     padding-top: 10px;
+}
+#mountainnamediv {
+    padding-left: 10px;
 }
 .mountimg {
     border-radius: 5%;
 }
-#fillmountdiv {
+.fillmountdiv {
     justify-content: space-around;
     flex-wrap: wrap;
 }
 .mountname {
     align-items: center;
+}
+
+/*national park page*/
+#selectiondiv {
+    padding: 10px 0px 0px 0px;
 }

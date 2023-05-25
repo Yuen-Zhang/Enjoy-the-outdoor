@@ -3,11 +3,18 @@
     window.onload = function() {
         displayTheList(mountainsArray);
         selectionList(sortByArray, "sortorder");
+        //add event listener to the show none button
     }
+
 //declear & assign value
+    const $ = document.querySelectorAll.bind(document);
     const mountInfoDiv = document.getElementById("displaymountlist");
     const sortOrder = document.getElementById("sortorder");
-    let sortByArray = ["A - Z", "Elevation"]
+    // const showSunStatusBtn = document.getElementsByClassName("shownone");
+    // const showSunStatus = document.getElementById("showsunstatus");
+    let sortByArray = ["A - Z", "Elevation"];
+    let fav = new Array();
+
 //get data/array from other js file
     import { mountainsArray } from "./data-scripts/mountainData.js";
     import { fillMountainDisplayDiv } from "./framework.js/htmlinjs.js";
@@ -56,19 +63,24 @@
         // loop through the array list to display the mountain information
         for (let index = 0; index < arrayList; index++) {
             const obj = _array[index];
-            obj.index=index;
-            obj.sunStatus = 
-                        `<div class="sunstatus row">
-                            <div class="col offset-3">
-                                <p><span>Sunrise: </span> <span>Sunset: </span></p>
-                            </div>
-                        </div>`
+            obj.index = index;
             theDisplayList += fillMountainDisplayDiv(obj)
-            
         }
         theDisplayList += `</div>`;
         mountInfoDiv.innerHTML = theDisplayList;
         
+        for(let obj of document.getElementsByClassName("shownone")){
+            let index = obj.id.replace("shownone","").split("#")[0];
+            let coords={
+                lat:obj.id.replace("shownone","").split("#")[1],
+                lng:obj.id.replace("shownone","").split("#")[2]
+            }
+            obj.addEventListener("click", function() {
+                document.getElementById(`showsunstatus${index}`).classList.remove("d-none")
+                //console.log(index)
+                getSunsetForMountain(coords,index);
+            })
+        }
         //add event listener to the tofav button
         let toFav = document.getElementsByClassName("tofav");
         for(let dom of toFav) {
@@ -76,43 +88,31 @@
                 add2Fav(dom.id.replace("btn", ""));
             })
         }
-        
-        
-        
-        // let btnArr=document.getElementsByClassName("checkSun")
-        
-        // for(let obj of btnArr) {
-        //     obj.addEventListener("click",function(){
-        //         let index=obj.id.split("#")[0];
-        //         let lat=obj.id.split("#")[1];
-        //         let lng=obj.id.split("#")[2];
-                
-        //         getSunsetForMountain(lat,lng,index)
-        //     })
-        // }
-
-
+      
     }
 
+    
 // add to fav function
     function add2Fav(name) {
         let favPlace = "";
         for(let place of mountainsArray) {
-            //alert(fav.indexOf(id))
-            if(place.name == name && !fav.includes(place.name)) {
+            if(place.name == name && !fav.includes(place.name)) {//aviod adding the same place twice
                 favPlace = place.name;
                 fav.push(favPlace);
                 $("#favnum")[0].innerText = fav.length;
-                localStorage.setItem("fav",fav)
-                localStorage.getItem("fav")
+                //save to local storage
+                localStorage.setItem("fav",fav);
+                localStorage.getItem("fav");
+
             }
         }
+        localStorage.setItem("fav2",fav);
     }
 
     for(let obj of document.getElementsByClassName("tofav")){
-    obj.addEventListener("click", function(){
-        add2Fav(name)
-    })
+        obj.addEventListener("click", function(){
+            add2Fav(name);
+        })
     }
 
 //search name function
@@ -127,13 +127,14 @@
     // }
 
 
-    function getSunsetForMountain(lat, lng){
-    //     fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`)
-    //     .then(response=>response.json())
-    //     .then(data=>{
-    //         //console.log("data:"+data);
-    //         document.getElementById(`sunset${index}`).innerHTML=`Sunrise:${data.results.sunrise}  Sunset:${data.results.sunset}`
-    //         //return data
-    //     }); //json.stringify() -> put json into string
+    function getSunsetForMountain(coords,index){
+        fetch(`https://api.sunrise-sunset.org/json?lat=${coords.lat}&lng=${coords.lng}&date=today`)
+        .then(response=>response.json())
+        .then(data=>{
+            console.log("data:"+data);
+            document.getElementById(`showsunstatus${index}`).innerHTML=`Sunrise: ${data.results.sunrise} <br> Sunset: ${data.results.sunset}`
+            //return data
+        }); //json.stringify() -> put json into string
     }
+
 
