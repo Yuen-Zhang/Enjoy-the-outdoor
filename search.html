@@ -48,31 +48,31 @@
             <main>
             <!--main selection list-->
                 <div class="container">
-                    <div class="row" id="selectiondiv">
-                        <div class="col-9">
-                            <div id="mainselectiondiv" class="row">
-                                    <div class="col-2"><strong>Filter By :</strong></div>
-                                    <div class="col-2">                        
-                                        <input type="radio" class="mainselection form-check-input" id="all" name="mainselection" value="all">
-                                        <label class="form-check-label" for="all">All</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="radio" class="mainselection form-check-input" id="location" name="mainselection" value="location">
-                                        <label class="form-check-label" for="location">Location</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="radio" class="mainselection form-check-input" id="parktype" name="mainselection" value="parktype">
-                                        <label class="form-check-label" for="parktype">Park Type</label>
-                                    </div>
+                        <div class="row">
+                            <div class="col-9" id="selectiondiv">
+                                <div id="mainselectiondiv" class="row">
+                                        <div class="col-2"><strong>Filter By :</strong></div>
+                                        <div class="col-2">                        
+                                            <input type="radio" class="mainselection form-check-input" id="all" name="mainselection" value="all">
+                                            <label class="form-check-label mainselection-label" for="all">All</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="radio" class="mainselection form-check-input" id="location" name="mainselection" value="location">
+                                            <label class="form-check-label mainselection-label" for="location">Location</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="radio" class="mainselection form-check-input" id="parktype" name="mainselection" value="parktype">
+                                            <label class="form-check-label mainselection-label" for="parktype">Park Type</label>
+                                        </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="data-search">
-                                <button class="btn btn-outline-success" type="submit" id="searchbtn">Search</button>
-                            </form>
-                        </div>
-                    </div>        
+                            <div class="col" id="searchdiv">
+                                <div class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" id="data-search" placeholder="Name / State / City">
+                                    <button class="btn btn-outline-success" type="button" id="searchbtn">Search</button>
+                                </div>
+                            </div>
+                        </div>        
                 </div>
                 <div class="container" id="secondselectiondiv">
                         <!--based on state-->
@@ -140,6 +140,7 @@
     </div>
     <!------------------------------footer end-------------------------------------->
         <!--js link-->
+        <script src="./scripts/global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <script type="module" src="./scripts/search.js"></script>
 </body>

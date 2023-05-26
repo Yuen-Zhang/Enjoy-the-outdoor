@@ -82,6 +82,11 @@ main {
     right: 10%;
 
 }
+#img4 {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
 #img5 {
     position: absolute;
     bottom: 15%;

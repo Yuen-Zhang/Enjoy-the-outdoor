@@ -11,7 +11,7 @@
     const thirdSelectionType = $("#typeparkselection")[0];
     const thirdSelectionTypeDiv = $("#thirdselectiontype")[0];
     const listToDisplay = $("#displaylist")[0];
-    let fav = [];
+    let fav = new Array();
     let searchInput = $("#data-search")[0];
     let searchBtn = $("#searchbtn")[0];
 //get data/array from other js file
@@ -19,12 +19,14 @@
     import { nationalParksArray } from "./data-scripts/nationalParkData.js";
     import { fillDisplayDiv } from "./framework.js/htmlinjs.js";
 
-
+    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)
+            ?[]
+            :localStorage.getItem("myObject").split("#$#")]
 
 //selction of radio button all / location / type
 // to modified: no need the confirm button, change by switch option,
 //  and will clear the list when option change
-    mainSelectionDiv.addEventListener("change", function() {
+    mainSelectionDiv.addEventListener("click", function() {
         listToDisplay.innerHTML="";
         secondSelectionLoc.innerHTML="";
         secondSelectionType.innerHTML="";
@@ -58,6 +60,9 @@
             console.log(`error : ${e}`);
         }
     });
+//default clik all
+    $("#all")[0].click()
+
 //the result by select different state
 
     secondSelectionLoc.addEventListener("change", function() {
@@ -163,8 +168,6 @@ function selectionListObj(_array, _selection) {
                         </div>
                     </div>`
             theDisplayList += fillDisplayDiv(obj)
-
-
         } //fillDisplayDiv function import from the html in js file
         theDisplayList += `</div>`;        
         listToDisplay.innerHTML = theDisplayList;
@@ -175,7 +178,35 @@ function selectionListObj(_array, _selection) {
                 add2Fav(dom.id.replace("btn", ""));
             })
         }
-    }
+    }    
+        //search function
+        searchBtn.addEventListener("click", (e) => {
+            //e.preventDefault()
+            const value = $("#data-search")[0].value.toUpperCase();
+            let searchArr = new Array();
+            if(value.length>=2){
+                for (let index = 0; index < nationalParksArray.length; index++) {
+                    let tempLoc=nationalParksArray[index].LocationName.toUpperCase();
+                    let tempCity=nationalParksArray[index].City.toUpperCase();
+                    let tempState=nationalParksArray[index].State.toUpperCase();
+                    if((tempLoc.indexOf(value)>=0 || tempCity.indexOf(value)>=0 || tempState.indexOf(value)>=0)) {
+                        searchArr.push(nationalParksArray[index]);
+                    } 
+                } 
+                displayTheList(searchArr);
+                if(searchArr.length == 0) {
+                    alert("Place Not Found")
+                }
+            }else{
+                alert("Text too Short. Please Put at Least 2 Characters!");
+            }
+            
+        })
+
+    
+    
+    
+    
 // function for display message when mouseover(tooltip), set location and message @ the html
         let detialInfoButton = $("mousehopover");
         detialInfoButton.forEach(t => {
@@ -187,18 +218,22 @@ function selectionListObj(_array, _selection) {
 
 // add to fav function
     function add2Fav(id) {
-        let favPlace = "";
         for(let place of nationalParksArray) {
             //alert(fav.indexOf(id))
-            if(place.LocationID == id && !fav.includes(place.LocationName)) {
-                favPlace = place.LocationName;
-                fav.push(favPlace);
+            let newPlace={...place};
+            newPlace.type="park";
+            delete newPlace.detail;
+
+            let tempPlace=JSON.stringify(newPlace)
+
+            if(newPlace.LocationID == id && !fav.includes(tempPlace)) {
+                
+                fav.push(tempPlace);
                 $("#favnum")[0].innerText = fav.length;
-                localStorage.setItem("fav",fav)
-                localStorage.getItem("fav")
+                localStorage.setItem("myObject",fav.join("#$#"))
             }
         }
-        localStorage.setItem("fav3",fav)
+        //localStorage.setItem("fav3",fav)
     }
 
 for(let obj of $(".tofav")){
@@ -206,13 +241,3 @@ for(let obj of $(".tofav")){
         add2Fav(LocationID);
     })
 }
-
-
-//window.location.search.substring(1)
-searchBtn.addEventListener("click", (e) => {
-    const value = e.target.searchInput.value
-    console.log(value);
-})
-/*time permit when select location display the US map then can click the state
-in map to go to the result of the certain state, and zoom in the result by
-the state locate, and when mouse over the state, display the park name */

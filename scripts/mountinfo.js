@@ -3,15 +3,11 @@
     window.onload = function() {
         displayTheList(mountainsArray);
         selectionList(sortByArray, "sortorder");
-        //add event listener to the show none button
     }
 
 //declear & assign value
-    const $ = document.querySelectorAll.bind(document);
     const mountInfoDiv = document.getElementById("displaymountlist");
     const sortOrder = document.getElementById("sortorder");
-    // const showSunStatusBtn = document.getElementsByClassName("shownone");
-    // const showSunStatus = document.getElementById("showsunstatus");
     let sortByArray = ["A - Z", "Elevation"];
     let fav = new Array();
 
@@ -19,6 +15,11 @@
     import { mountainsArray } from "./data-scripts/mountainData.js";
     import { fillMountainDisplayDiv } from "./framework.js/htmlinjs.js";
 
+
+
+    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)
+            ?[]
+            :localStorage.getItem("myObject").split("#$#")]
 //function for different sort way
     sortOrder.addEventListener("change", function() {
         let arr=[...mountainsArray];
@@ -60,6 +61,7 @@
         // display in card
         let theDisplayList = `<div class="card">`;
         let arrayList = _array.length;
+        
         // loop through the array list to display the mountain information
         for (let index = 0; index < arrayList; index++) {
             const obj = _array[index];
@@ -69,6 +71,7 @@
         theDisplayList += `</div>`;
         mountInfoDiv.innerHTML = theDisplayList;
         
+        //to show the sunrise and sunset time
         for(let obj of document.getElementsByClassName("shownone")){
             let index = obj.id.replace("shownone","").split("#")[0];
             let coords={
@@ -81,6 +84,7 @@
                 getSunsetForMountain(coords,index);
             })
         }
+        
         //add event listener to the tofav button
         let toFav = document.getElementsByClassName("tofav");
         for(let dom of toFav) {
@@ -94,19 +98,24 @@
     
 // add to fav function
     function add2Fav(name) {
-        let favPlace = "";
         for(let place of mountainsArray) {
-            if(place.name == name && !fav.includes(place.name)) {//aviod adding the same place twice
-                favPlace = place.name;
-                fav.push(favPlace);
-                $("#favnum")[0].innerText = fav.length;
-                //save to local storage
-                localStorage.setItem("fav",fav);
-                localStorage.getItem("fav");
 
+            let newPlace={...place};
+            newPlace.type="mountain";
+            let tempPlace=JSON.stringify(newPlace)
+            if(place.name == name && !fav.includes(tempPlace)) {//aviod adding the same place twice
+              //  favPlace = place.name;
+                
+                fav.push(tempPlace);
+                
+                $("#favnum")[0].innerText = fav.length;
+                
             }
+            //localStorage("len",fav.length)
         }
-        localStorage.setItem("fav2",fav);
+        //localStorage.setItem("fav",fav);  
+        localStorage.setItem("myObject", fav.join("#$#"));
+
     }
 
     for(let obj of document.getElementsByClassName("tofav")){
@@ -118,23 +127,21 @@
 //search name function
 
 //display mount sunrise & sunset time
-// function that can "fetch" the sunrise/sunset times
+    // function that can "fetch" the sunrise/sunset times
     // async function asyncGetSunsetForMountain(lat, lng){
     //     let response = await fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&date=today`);
     //     let data = await response.json();
     //     //console.log(data)
     //     return data;
     // }
-
-
-    function getSunsetForMountain(coords,index){
+    function getSunsetForMountain(coords,index){//get api data with fetch function
         fetch(`https://api.sunrise-sunset.org/json?lat=${coords.lat}&lng=${coords.lng}&date=today`)
         .then(response=>response.json())
         .then(data=>{
             console.log("data:"+data);
             document.getElementById(`showsunstatus${index}`).innerHTML=`Sunrise: ${data.results.sunrise} <br> Sunset: ${data.results.sunset}`
             //return data
-        }); //json.stringify() -> put json into string
+        }); 
     }
 
 

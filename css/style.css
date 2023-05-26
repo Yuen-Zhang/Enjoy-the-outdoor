@@ -31,6 +31,9 @@
 .nav-link {
     font-size: 20px;
 }
+#favnum {
+    color: black;
+}
 
 /*************footer**************/
 #page-container {
@@ -57,6 +60,9 @@ footer {
 }
 /**************main**************/
 /*selection*/
+.mainselection, .mainselection-label {
+    cursor: pointer;
+}
 #secondselectiondiv {
     margin-top: 5px;
     margin-bottom: 10px;
@@ -108,9 +114,6 @@ footer {
 a {
     text-decoration: none;
 }
-#favnum {
-    color: black;
-}
 
 /*mount info page*/
 #sortdiv, #mountainnamediv {
@@ -132,6 +135,6 @@ a {
 }
 
 /*national park page*/
-#selectiondiv {
+#selectiondiv, #searchdiv {
     padding: 10px 0px 0px 0px;
 }

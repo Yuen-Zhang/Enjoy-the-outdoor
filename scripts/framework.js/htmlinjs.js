@@ -62,12 +62,3 @@ export function fillMountainDisplayDiv(obj){
                 </div>
             </div><hr>`;
 }
-
-function sunStatusDiv(obj) {
-    return `<div class="sunstatus row">
-                <div class="col offset-3">
-                    <p><span>Sunrise: ${obj.sunrise}</span> <span>Sunset: ${obj.sunset}</span></p>
-                </div>
-            </div>`
-
-}
