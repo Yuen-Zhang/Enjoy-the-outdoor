@@ -12,8 +12,6 @@
     }
        
 // put the list back to html to show
-    
-   
     for(let i=0;i<mountList.length;i++){
         let obj=JSON.parse(mountList[i])
         // template of how to display
@@ -59,22 +57,20 @@
             </div>
         </div>`;  
         }
-        
         showMyList.appendChild(mainList)
-
-    
     }
     
-    
+    //display the fav list clear button
     if(mountList.length!=0){
         showMyList.innerHTML += `<div  style="text-align: center;">
-            <a type="btn" class="btn btn-secondary" id="toclear">Clear</a>
-        </div>`
+                                <a type="btn" class="btn btn-secondary" id="toclear">Clear</a>
+                                </div>`;
         $("#toclear")[0].addEventListener("click",function(){
             localStorage.removeItem("myObject");
             //document.location.href="./favlist.html";
             showMyList.innerHTML="";
-            mountList=[];
+            mountList=[];//return an empty array
+            showMyList.innerHTML += `<div style="text-align: center;"><h3>Empty List</h3></div>`
         })
     }else{
         showMyList.innerHTML += `<div style="text-align: center;"><h3>Empty List</h3></div>`

@@ -34,17 +34,18 @@ export function fillDisplayDiv(obj){
 
 // for mountain info page, display the mountain name / img / and other info
 export function fillMountainDisplayDiv(obj){
-    return `<div class="d-flex fillmountdiv" id="fillmountdiv${obj.index}">
-                <div>
+    return `<div class="row fillmountdiv" id="fillmountdiv${obj.index}">
+                <div class="col mountimgdiv">
                     <img class="mountimg" src="./images/${obj.img}">
                 </div>
-                <div class="mountname">
+                <div class="col-4 mountname">
                     <h5>${obj.name}</h5>
                     <p>Elevation: ${obj.elevation}</p>
                     <p>Mode: ${obj.effort}</p>
+                    <p>${obj.desc}</p>
                     <div id="showsunstatus${obj.index}" class="d-none showsunstatus"></div>
                 </div>
-                <div>
+                <div class="col-2">
                     <button id="shownone${obj.index}#${obj.coords.lat}#${obj.coords.lng}" class="mousehopover shownone btn btn-success"
                         data-bs-placement="top" 
                         title="Explore More"> <!--mouseover see "explore more"-->

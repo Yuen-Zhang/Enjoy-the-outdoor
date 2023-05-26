@@ -9,7 +9,7 @@
     --purplelight: #8e4a49ab;
 
 }
-
+/*for the main content*/
 main {
     display: flex;
     align-items: center;
@@ -41,9 +41,9 @@ main {
 }
 
 .imgtext {
-    opacity: 0;
+    opacity: 0;/*not showing the text when img collapse*/
 }
-
+/*when click image*/
 .panel.active {
     flex: 5;
 }
@@ -51,7 +51,7 @@ main {
 .panel.active .imgtext {
     opacity: 1;
 }
-
+/*position for all the img*/
 #img1 {
     position: absolute;
     bottom: 50px;
@@ -92,6 +92,8 @@ main {
     bottom: 15%;
     left: 5px;
 }
+/*position for all img end*/
+/*img effect on screen size*/
 @media (max-width: 480px) {
     .container {
         width: 100vw;

@@ -14,24 +14,22 @@
     let fav = new Array();
     let searchInput = $("#data-search")[0];
     let searchBtn = $("#searchbtn")[0];
+
 //get data/array from other js file
     import { locationsArray, parkTypeArray} from "./data-scripts/locationData.js";
     import { nationalParksArray } from "./data-scripts/nationalParkData.js";
     import { fillDisplayDiv } from "./framework.js/htmlinjs.js";
 
-    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)
+    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)//prevent to clear the list number from previous page
             ?[]
             :localStorage.getItem("myObject").split("#$#")]
 
 //selction of radio button all / location / type
-// to modified: no need the confirm button, change by switch option,
-//  and will clear the list when option change
     mainSelectionDiv.addEventListener("click", function() {
-        listToDisplay.innerHTML="";
+        listToDisplay.innerHTML="";//clear the list when option change
         secondSelectionLoc.innerHTML="";
         secondSelectionType.innerHTML="";
-
-
+        //things todo when select different option
         const mainSelection = $("input[name='mainselection']:checked")[0];
         try{
             if (mainSelection.value == "location") {
@@ -47,8 +45,7 @@
                 thirdSelectionLocDiv.classList.add("d-none");
                 secondSelectionTypeDiv.classList.remove("d-none");
                 thirdSelectionTypeDiv.classList.add("d-none");
-                // const parkTypeOption = new Option("Others");
-                selectionList(parkTypeArray, "parkselection");//.appendChild(parkTypeOption);
+                selectionList(parkTypeArray, "parkselection");
             }else{
                 // selected all
                 displayTheList(nationalParksArray);
@@ -60,11 +57,10 @@
             console.log(`error : ${e}`);
         }
     });
-//default clik all
+//default click all
     $("#all")[0].click()
 
 //the result by select different state
-
     secondSelectionLoc.addEventListener("change", function() {
         thirdSelectionLoc.innerHTML="";
         let parkInState = [];
@@ -146,14 +142,12 @@ function selectionListObj(_array, _selection) {
     return exampleList;
 }
 
-
 //function to display the park list
     function displayTheList(_array) {
         // display in card
         let theDisplayList = `<div class="card">`;
-        
         let checkData=data=>data!==undefined&&data!=0?data:"N/A";//check _array[index] in nationalParkData location which == 0 
-        let checkWebsite=data=>data!==undefined&&data!=0?data:"style='pointer-events:none'";
+        let checkWebsite=data=>data!==undefined&&data!=0?data:"style='pointer-events:none'";//not link to other page if no website provide
         let arrayList = _array.length;
         for (let index = 0; index < arrayList; index++) {
             const obj = _array[index]; // function for display the park list in detail
@@ -168,9 +162,11 @@ function selectionListObj(_array, _selection) {
                         </div>
                     </div>`
             theDisplayList += fillDisplayDiv(obj)
-        } //fillDisplayDiv function import from the html in js file
+        } 
+        //fillDisplayDiv function import from the html in js file
         theDisplayList += `</div>`;        
         listToDisplay.innerHTML = theDisplayList;
+        
         //add event listener to the tofav button
         let toFav = document.getElementsByClassName("tofav");
         for(let dom of toFav) {
@@ -179,65 +175,54 @@ function selectionListObj(_array, _selection) {
             })
         }
     }    
-        //search function
-        searchBtn.addEventListener("click", (e) => {
-            //e.preventDefault()
-            const value = $("#data-search")[0].value.toUpperCase();
-            let searchArr = new Array();
-            if(value.length>=2){
-                for (let index = 0; index < nationalParksArray.length; index++) {
-                    let tempLoc=nationalParksArray[index].LocationName.toUpperCase();
-                    let tempCity=nationalParksArray[index].City.toUpperCase();
-                    let tempState=nationalParksArray[index].State.toUpperCase();
-                    if((tempLoc.indexOf(value)>=0 || tempCity.indexOf(value)>=0 || tempState.indexOf(value)>=0)) {
-                        searchArr.push(nationalParksArray[index]);
-                    } 
+
+//search function
+    searchBtn.addEventListener("click", (e) => {
+        const value = $("#data-search")[0].value.toUpperCase();//put the value enter to all caps
+        let searchArr = new Array();
+        if(value.length>=2){
+            for (let index = 0; index < nationalParksArray.length; index++) {
+                let tempLoc=nationalParksArray[index].LocationName.toUpperCase();//put all the info need to compare to caps
+                let tempCity=nationalParksArray[index].City.toUpperCase();
+                let tempState=nationalParksArray[index].State.toUpperCase();
+                if((tempLoc.indexOf(value)>=0 || tempCity.indexOf(value)>=0 || tempState.indexOf(value)>=0)) {//see if any value match with the data
+                    searchArr.push(nationalParksArray[index]);
                 } 
-                displayTheList(searchArr);
-                if(searchArr.length == 0) {
-                    alert("Place Not Found")
-                }
-            }else{
-                alert("Text too Short. Please Put at Least 2 Characters!");
+            } 
+            displayTheList(searchArr);
+            if(searchArr.length == 0) {
+                alert("Place Not Found")
             }
-            
-        })
+        }else{
+            alert("Text too Short. Please Put at Least 2 Characters!");
+        }
+    })
 
-    
-    
-    
-    
 // function for display message when mouseover(tooltip), set location and message @ the html
-        let detialInfoButton = $("mousehopover");
-        detialInfoButton.forEach(t => {
-            new bootstrap.Tooltip(t)
-        })
+    let detialInfoButton = $("mousehopover");
+    detialInfoButton.forEach(t => {
+        new bootstrap.Tooltip(t)
+    })
     
-
-
-
 // add to fav function
     function add2Fav(id) {
         for(let place of nationalParksArray) {
             //alert(fav.indexOf(id))
             let newPlace={...place};
-            newPlace.type="park";
+            newPlace.type="park";//add type so can adjust which to show in the fav list
             delete newPlace.detail;
+            let tempPlace=JSON.stringify(newPlace)//to string
 
-            let tempPlace=JSON.stringify(newPlace)
-
-            if(newPlace.LocationID == id && !fav.includes(tempPlace)) {
-                
+            if(newPlace.LocationID == id && !fav.includes(tempPlace)) {//prevent adding the same place twice
                 fav.push(tempPlace);
                 $("#favnum")[0].innerText = fav.length;
                 localStorage.setItem("myObject",fav.join("#$#"))
             }
         }
-        //localStorage.setItem("fav3",fav)
     }
 
-for(let obj of $(".tofav")){
-    obj.addEventListener("click", function(){
-        add2Fav(LocationID);
-    })
-}
+    for(let obj of $(".tofav")){
+        obj.addEventListener("click", function(){
+            add2Fav(LocationID);
+        })
+    }

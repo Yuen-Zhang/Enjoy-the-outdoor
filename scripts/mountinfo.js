@@ -16,10 +16,10 @@
     import { fillMountainDisplayDiv } from "./framework.js/htmlinjs.js";
 
 
-
-    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)
+//... spread syntax: expand the array into individual element
+    fav=[...(localStorage.getItem("myObject")==""||localStorage.getItem("myObject")==null)//prevent to clear the list number from previous page
             ?[]
-            :localStorage.getItem("myObject").split("#$#")]
+            :localStorage.getItem("myObject").split("#$#")]//using special symbol to separate the list array
 //function for different sort way
     sortOrder.addEventListener("change", function() {
         let arr=[...mountainsArray];
@@ -104,18 +104,11 @@
             newPlace.type="mountain";
             let tempPlace=JSON.stringify(newPlace)
             if(place.name == name && !fav.includes(tempPlace)) {//aviod adding the same place twice
-              //  favPlace = place.name;
-                
                 fav.push(tempPlace);
-                
                 $("#favnum")[0].innerText = fav.length;
-                
             }
-            //localStorage("len",fav.length)
         }
-        //localStorage.setItem("fav",fav);  
         localStorage.setItem("myObject", fav.join("#$#"));
-
     }
 
     for(let obj of document.getElementsByClassName("tofav")){
@@ -123,8 +116,6 @@
             add2Fav(name);
         })
     }
-
-//search name function
 
 //display mount sunrise & sunset time
     // function that can "fetch" the sunrise/sunset times

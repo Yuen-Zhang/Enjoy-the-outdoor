@@ -123,8 +123,18 @@ a {
 #mountainnamediv {
     padding-left: 10px;
 }
+.fillmountdiv {
+    display: flex;
+    flex-wrap: wrap;
+}
+.mountimgdiv {
+    display: flex;
+    justify-content: center;
+}
 .mountimg {
     border-radius: 5%;
+    object-fit: contain;
+    width: 500px;
 }
 .fillmountdiv {
     justify-content: space-around;
@@ -137,4 +147,9 @@ a {
 /*national park page*/
 #selectiondiv, #searchdiv {
     padding: 10px 0px 0px 0px;
+}
+
+/*my fav page*/
+.myfav {
+    padding-left: 20px;
 }
